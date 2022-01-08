@@ -1,34 +1,19 @@
+<script>
+import NoteToolbar from "./components/NoteToolbar.vue";
+import NoteContainer from "./components/NoteContainer.vue";
+
+export default {
+  components: {
+    NoteToolbar,
+    NoteContainer,
+  },
+};
+</script>
+
 <template>
   <div id="app">
-    <div class="toolbar">
-      <button class="toolbar-button toolbar-button-new">New</button>
-      <button class="toolbar-button toolbar-button-delete">Delete</button>
-      <input class="toolbar-search" type="text" placeholder="Search..." />
-    </div>
-    <div class="note-container">
-      <div class="note-selectors">
-        <div class="note-selector active">
-          <p class="note-selector-title">First note...</p>
-          <p class="note-selector-timestamp">Timestamp here...</p>
-        </div>
-        <div class="note-selector">
-          <p class="note-selector-title">Second note...</p>
-          <p class="note-selector-timestamp">Timestamp here...</p>
-        </div>
-        <div class="note-selector">
-          <p class="note-selector-title">Third note...</p>
-          <p class="note-selector-timestamp">Timestamp here...</p>
-        </div>
-      </div>
-      <div class="note-editor">
-        <p class="note-editor-info">Timestamp here...</p>
-        <textarea class="note-editor-input">
-          First note...
-          
-          Note text here...
-        </textarea>
-      </div>
-    </div>
+    <NoteToolbar />
+    <NoteContainer />
   </div>
 </template>
 
@@ -47,21 +32,6 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
-.toolbar {
-  padding: 0.5em;
-}
-.toolbar-button,
-.toolbar-search {
-  padding: inherit;
-  border-radius: 0.3em;
-}
-.toolbar-search {
-  float: right;
-}
-.note-container {
-  display: flex;
-  flex: 1;
 }
 .note-selectors {
   flex: 0 0 13em;
@@ -92,15 +62,6 @@
 * {
   color: #454545;
   background-color: #fafaf8;
-}
-.toolbar {
-  background-color: #dcdadc;
-}
-.toolbar-button {
-  background-color: #ffffff;
-}
-.toolbar-button:active {
-  background-color: #aaaaaa;
 }
 .note-selectors {
   border-right: 1px solid #dcdadc;
