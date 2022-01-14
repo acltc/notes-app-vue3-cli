@@ -11,13 +11,20 @@ export default {
     return {
       notes: [],
       selectedNote: {},
+      searchNoteText: "",
     };
   },
   computed: {
     transformedNotes: function () {
-      return this.notes.slice().sort(function (a, b) {
-        return b.timestamp - a.timestamp;
-      });
+      const searchLower = this.searchNoteText.toLowerCase();
+      return this.notes
+        .filter(function (note) {
+          const bodyLower = note.body.toLowerCase();
+          return bodyLower.indexOf(searchLower) !== -1;
+        })
+        .sort(function (a, b) {
+          return b.timestamp - a.timestamp;
+        });
     },
   },
   created: function () {
@@ -56,13 +63,26 @@ export default {
         }
       }
     },
+    updateSearch: function (newSearchText) {
+      this.searchNoteText = newSearchText;
+      if (this.transformedNotes.length === 0) {
+        this.selectedNote = {};
+      } else if (this.transformedNotes.indexOf(this.selectedNote) === -1) {
+        this.selectedNote = this.transformedNotes[0];
+      }
+    },
   },
 };
 </script>
 
 <template>
   <div id="app">
-    <NoteToolbar v-on:clickNew="createNote" v-on:clickDelete="deleteNote" />
+    <NoteToolbar
+      v-bind:searchNoteText="searchNoteText"
+      v-on:clickNew="createNote"
+      v-on:clickDelete="deleteNote"
+      v-on:inputSearchNoteText="updateSearch"
+    />
     <NoteContainer
       v-bind:notes="transformedNotes"
       v-bind:selectedNote="selectedNote"
