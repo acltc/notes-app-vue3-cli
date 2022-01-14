@@ -1,13 +1,28 @@
 <script>
 export default {
   props: ["note"],
+  methods: {
+    formatTitle: function (body) {
+      const maxLength = 20;
+      if (body.length > maxLength) {
+        return body.substring(0, maxLength - 3) + "...";
+      } else if (body.length === 0) {
+        return "New note";
+      } else {
+        return body;
+      }
+    },
+    formatTimestamp: function (timestamp) {
+      return new Date(timestamp).toUTCString();
+    },
+  },
 };
 </script>
 
 <template>
   <div class="note-selector">
-    <p class="note-selector-title">{{ note.body }}</p>
-    <p class="note-selector-timestamp">{{ note.timestamp }}</p>
+    <p class="note-selector-title">{{ formatTitle(note.body) }}</p>
+    <p class="note-selector-timestamp">{{ formatTimestamp(note.timestamp) }}</p>
   </div>
 </template>
 
