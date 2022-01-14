@@ -9,12 +9,22 @@ export default {
   },
   data: function () {
     return {
-      notes: [
-        { id: 1, body: "This is a first test", timestamp: Date.now() - 2000000 },
-        { id: 2, body: "This is a second test", timestamp: Date.now() - 1000000 },
-        { id: 3, body: "This is a third test", timestamp: Date.now() },
-      ],
+      notes: [],
+      selectedNote: {},
     };
+  },
+  created: function () {
+    this.notes = [
+      { id: 1, body: "This is a first test", timestamp: Date.now() - 2000000 },
+      { id: 2, body: "This is a second test", timestamp: Date.now() - 1000000 },
+      { id: 3, body: "This is a third test", timestamp: Date.now() },
+    ];
+    this.selectedNote = this.notes[0];
+  },
+  methods: {
+    selectNote: function (note) {
+      this.selectedNote = note;
+    },
   },
 };
 </script>
@@ -22,7 +32,11 @@ export default {
 <template>
   <div id="app">
     <NoteToolbar />
-    <NoteContainer v-bind:notes="notes" />
+    <NoteContainer
+      v-bind:notes="notes"
+      v-bind:selectedNote="selectedNote"
+      v-on:selectNote="selectNote"
+    />
   </div>
 </template>
 

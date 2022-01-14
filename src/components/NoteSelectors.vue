@@ -5,7 +5,7 @@ export default {
   components: {
     NoteSelector,
   },
-  props: ["notes"],
+  props: ["notes", "selectedNote"],
   computed: {
     transformedNotes: function () {
       return this.notes.slice().sort(function (a, b) {
@@ -13,12 +13,23 @@ export default {
       });
     },
   },
+  methods: {
+    selectNote: function (note) {
+      this.$emit("selectNote", note);
+    },
+  },
 };
 </script>
 
 <template>
   <div class="note-selectors">
-    <NoteSelector v-for="note in transformedNotes" v-bind:key="note.id" v-bind:note="note" />
+    <NoteSelector
+      v-for="note in transformedNotes"
+      v-bind:key="note.id"
+      v-bind:note="note"
+      v-bind:selectedNote="selectedNote"
+      v-on:click="selectNote(note)"
+    />
   </div>
 </template>
 

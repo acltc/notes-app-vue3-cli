@@ -1,6 +1,6 @@
 <script>
 export default {
-  props: ["note"],
+  props: ["note", "selectedNote"],
   methods: {
     formatTitle: function (body) {
       const maxLength = 20;
@@ -20,7 +20,7 @@ export default {
 </script>
 
 <template>
-  <div class="note-selector">
+  <div class="note-selector" v-bind:class="{ active: note === selectedNote }">
     <p class="note-selector-title">{{ formatTitle(note.body) }}</p>
     <p class="note-selector-timestamp">{{ formatTimestamp(note.timestamp) }}</p>
   </div>

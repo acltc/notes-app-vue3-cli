@@ -1,12 +1,18 @@
+<script>
+export default {
+  props: ["selectedNote"],
+  methods: {
+    formatTimestamp: function (timestamp) {
+      return new Date(timestamp).toUTCString();
+    },
+  },
+};
+</script>
+
 <template>
   <div class="note-editor">
-    <p class="note-editor-info">Timestamp here...</p>
-    <textarea class="note-editor-input">
-          First note...
-          
-          Note text here...
-        </textarea
-    >
+    <p class="note-editor-info">{{ formatTimestamp(selectedNote.timestamp) }}</p>
+    <textarea v-bind:value="selectedNote.body" class="note-editor-input"></textarea>
   </div>
 </template>
 
