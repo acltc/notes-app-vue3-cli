@@ -4,6 +4,9 @@ export default {
     clickNew: function () {
       this.$emit("clickNew");
     },
+    clickDelete: function () {
+      this.$emit("clickDelete");
+    },
   },
 };
 </script>
@@ -11,7 +14,7 @@ export default {
 <template>
   <div class="toolbar">
     <button v-on:click="clickNew" class="toolbar-button toolbar-button-new">New</button>
-    <button class="toolbar-button toolbar-button-delete">Delete</button>
+    <button v-on:click="clickDelete" class="toolbar-button toolbar-button-delete">Delete</button>
     <input class="toolbar-search" type="text" placeholder="Search..." />
   </div>
 </template>

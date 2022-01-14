@@ -13,7 +13,7 @@ export default {
 </script>
 
 <template>
-  <div class="note-editor">
+  <div v-if="selectedNote.id" class="note-editor">
     <p class="note-editor-info">{{ formatTimestamp(selectedNote.timestamp) }}</p>
     <textarea
       v-bind:value="selectedNote.body"

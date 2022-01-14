@@ -6,13 +6,6 @@ export default {
     NoteSelector,
   },
   props: ["notes", "selectedNote"],
-  computed: {
-    transformedNotes: function () {
-      return this.notes.slice().sort(function (a, b) {
-        return b.timestamp - a.timestamp;
-      });
-    },
-  },
   methods: {
     selectNote: function (note) {
       this.$emit("selectNote", note);
@@ -24,7 +17,7 @@ export default {
 <template>
   <div class="note-selectors">
     <NoteSelector
-      v-for="note in transformedNotes"
+      v-for="note in notes"
       v-bind:key="note.id"
       v-bind:note="note"
       v-bind:selectedNote="selectedNote"

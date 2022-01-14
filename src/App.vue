@@ -13,6 +13,13 @@ export default {
       selectedNote: {},
     };
   },
+  computed: {
+    transformedNotes: function () {
+      return this.notes.slice().sort(function (a, b) {
+        return b.timestamp - a.timestamp;
+      });
+    },
+  },
   created: function () {
     this.notes = [
       { id: 1, body: "This is a first test", timestamp: Date.now() - 2000000 },
@@ -38,15 +45,26 @@ export default {
       this.notes.push(newNote);
       this.selectedNote = newNote;
     },
+    deleteNote: function () {
+      const index = this.notes.indexOf(this.selectedNote);
+      if (index !== -1) {
+        this.notes.splice(index, 1);
+        if (this.transformedNotes.length > 0) {
+          this.selectedNote = this.transformedNotes[0];
+        } else {
+          this.selectedNote = {};
+        }
+      }
+    },
   },
 };
 </script>
 
 <template>
   <div id="app">
-    <NoteToolbar v-on:clickNew="createNote" />
+    <NoteToolbar v-on:clickNew="createNote" v-on:clickDelete="deleteNote" />
     <NoteContainer
-      v-bind:notes="notes"
+      v-bind:notes="transformedNotes"
       v-bind:selectedNote="selectedNote"
       v-on:selectNote="selectNote"
       v-on:inputNoteEditor="updateSelectedNote"
