@@ -12,6 +12,9 @@ export default {
     selectNote: function (note) {
       this.$emit("selectNote", note);
     },
+    inputNoteEditor: function (body) {
+      this.$emit("inputNoteEditor", body);
+    },
   },
 };
 </script>
@@ -23,7 +26,7 @@ export default {
       v-bind:selectedNote="selectedNote"
       v-on:selectNote="selectNote"
     />
-    <NoteEditor v-bind:selectedNote="selectedNote" />
+    <NoteEditor v-bind:selectedNote="selectedNote" v-on:inputNoteEditor="inputNoteEditor" />
   </div>
 </template>
 

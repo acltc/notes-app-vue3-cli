@@ -5,6 +5,9 @@ export default {
     formatTimestamp: function (timestamp) {
       return new Date(timestamp).toUTCString();
     },
+    input: function (event) {
+      this.$emit("inputNoteEditor", event.target.value);
+    },
   },
 };
 </script>
@@ -12,7 +15,11 @@ export default {
 <template>
   <div class="note-editor">
     <p class="note-editor-info">{{ formatTimestamp(selectedNote.timestamp) }}</p>
-    <textarea v-bind:value="selectedNote.body" class="note-editor-input"></textarea>
+    <textarea
+      v-bind:value="selectedNote.body"
+      v-on:input="input"
+      class="note-editor-input"
+    ></textarea>
   </div>
 </template>
 
