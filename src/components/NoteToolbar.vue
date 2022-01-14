@@ -1,6 +1,16 @@
+<script>
+export default {
+  methods: {
+    clickNew: function () {
+      this.$emit("clickNew");
+    },
+  },
+};
+</script>
+
 <template>
   <div class="toolbar">
-    <button class="toolbar-button toolbar-button-new">New</button>
+    <button v-on:click="clickNew" class="toolbar-button toolbar-button-new">New</button>
     <button class="toolbar-button toolbar-button-delete">Delete</button>
     <input class="toolbar-search" type="text" placeholder="Search..." />
   </div>

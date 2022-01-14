@@ -29,13 +29,22 @@ export default {
       this.selectedNote.body = body;
       this.selectedNote.timestamp = Date.now();
     },
+    createNote: function () {
+      const newNote = {
+        id: Date.now(),
+        body: "",
+        timestamp: Date.now(),
+      };
+      this.notes.push(newNote);
+      this.selectedNote = newNote;
+    },
   },
 };
 </script>
 
 <template>
   <div id="app">
-    <NoteToolbar />
+    <NoteToolbar v-on:clickNew="createNote" />
     <NoteContainer
       v-bind:notes="notes"
       v-bind:selectedNote="selectedNote"
