@@ -5,14 +5,13 @@ export default {
   components: {
     NoteSelector,
   },
+  props: ["notes"],
 };
 </script>
 
 <template>
   <div class="note-selectors">
-    <NoteSelector />
-    <NoteSelector />
-    <NoteSelector />
+    <NoteSelector v-for="note in notes" v-bind:key="note.id" v-bind:note="note" />
   </div>
 </template>
 
