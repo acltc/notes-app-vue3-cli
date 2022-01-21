@@ -13,6 +13,7 @@ export default {
       notes: computed(() => this.transformedNotes),
       selectedNote: computed(() => this.selectedNote),
       selectNote: this.selectNote,
+      updateSelectedNote: this.updateSelectedNote,
     };
   },
   data: function () {
@@ -91,7 +92,7 @@ export default {
       v-on:clickDelete="deleteNote"
       v-on:inputSearchNoteText="updateSearch"
     />
-    <NoteContainer v-on:inputNoteEditor="updateSelectedNote" />
+    <NoteContainer />
   </div>
 </template>
 

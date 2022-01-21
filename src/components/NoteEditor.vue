@@ -1,12 +1,12 @@
 <script>
 export default {
-  inject: ["selectedNote"],
+  inject: ["selectedNote", "updateSelectedNote"],
   methods: {
     formatTimestamp: function (timestamp) {
       return new Date(timestamp).toUTCString();
     },
     input: function (event) {
-      this.$emit("inputNoteEditor", event.target.value);
+      this.updateSelectedNote(event.target.value);
     },
   },
 };

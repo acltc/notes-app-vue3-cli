@@ -7,18 +7,13 @@ export default {
     NoteSelectors,
     NoteEditor,
   },
-  methods: {
-    inputNoteEditor: function (body) {
-      this.$emit("inputNoteEditor", body);
-    },
-  },
 };
 </script>
 
 <template>
   <div class="note-container">
     <NoteSelectors />
-    <NoteEditor v-on:inputNoteEditor="inputNoteEditor" />
+    <NoteEditor />
   </div>
 </template>
 
