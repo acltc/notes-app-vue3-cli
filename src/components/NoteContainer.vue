@@ -8,9 +8,6 @@ export default {
     NoteEditor,
   },
   methods: {
-    selectNote: function (note) {
-      this.$emit("selectNote", note);
-    },
     inputNoteEditor: function (body) {
       this.$emit("inputNoteEditor", body);
     },
@@ -20,7 +17,7 @@ export default {
 
 <template>
   <div class="note-container">
-    <NoteSelectors v-on:selectNote="selectNote" />
+    <NoteSelectors />
     <NoteEditor v-on:inputNoteEditor="inputNoteEditor" />
   </div>
 </template>

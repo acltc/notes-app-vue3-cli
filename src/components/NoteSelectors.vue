@@ -5,10 +5,10 @@ export default {
   components: {
     NoteSelector,
   },
-  inject: ["notes", "selectedNote"],
+  inject: ["notes", "selectedNote", "selectNote"],
   methods: {
-    selectNote: function (note) {
-      this.$emit("selectNote", note);
+    onClickNote: function (note) {
+      this.selectNote(note);
     },
   },
 };
@@ -21,7 +21,7 @@ export default {
       v-bind:key="note.id"
       v-bind:note="note"
       v-bind:selectedNote="selectedNote"
-      v-on:click="selectNote(note)"
+      v-on:click="onClickNote(note)"
     />
   </div>
 </template>
