@@ -1,6 +1,6 @@
 <script>
 export default {
-  props: ["selectedNote"],
+  inject: ["selectedNote"],
   methods: {
     formatTimestamp: function (timestamp) {
       return new Date(timestamp).toUTCString();

@@ -5,8 +5,7 @@ export default {
   components: {
     NoteSelector,
   },
-  inject: ["notes"],
-  props: ["selectedNote"],
+  inject: ["notes", "selectedNote"],
   methods: {
     selectNote: function (note) {
       this.$emit("selectNote", note);
