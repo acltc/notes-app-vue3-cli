@@ -1,4 +1,5 @@
 <script>
+import { computed } from "vue";
 import NoteToolbar from "./components/NoteToolbar.vue";
 import NoteContainer from "./components/NoteContainer.vue";
 
@@ -6,6 +7,11 @@ export default {
   components: {
     NoteToolbar,
     NoteContainer,
+  },
+  provide: function () {
+    return {
+      notes: computed(() => this.transformedNotes),
+    };
   },
   data: function () {
     return {
@@ -84,7 +90,6 @@ export default {
       v-on:inputSearchNoteText="updateSearch"
     />
     <NoteContainer
-      v-bind:notes="transformedNotes"
       v-bind:selectedNote="selectedNote"
       v-on:selectNote="selectNote"
       v-on:inputNoteEditor="updateSelectedNote"
