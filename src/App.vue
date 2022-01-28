@@ -1,5 +1,5 @@
 <script>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import NoteToolbar from "./components/NoteToolbar.vue";
 import NoteContainer from "./components/NoteContainer.vue";
 
@@ -8,19 +8,27 @@ export default {
     NoteToolbar,
     NoteContainer,
   },
+  setup: function () {
+    const notes = ref([
+      { id: 1, body: "This is a first test", timestamp: Date.now() - 2000000 },
+      { id: 2, body: "This is a second test", timestamp: Date.now() - 1000000 },
+      { id: 3, body: "This is a third test", timestamp: Date.now() },
+    ]);
+    const selectedNote = ref(notes.value[0]);
+    const searchNoteText = ref("");
+
+    return {
+      notes,
+      selectedNote,
+      searchNoteText,
+    };
+  },
   provide: function () {
     return {
       notes: computed(() => this.transformedNotes),
       selectedNote: computed(() => this.selectedNote),
       selectNote: this.selectNote,
       updateSelectedNote: this.updateSelectedNote,
-    };
-  },
-  data: function () {
-    return {
-      notes: [],
-      selectedNote: {},
-      searchNoteText: "",
     };
   },
   computed: {
@@ -35,14 +43,6 @@ export default {
           return b.timestamp - a.timestamp;
         });
     },
-  },
-  created: function () {
-    this.notes = [
-      { id: 1, body: "This is a first test", timestamp: Date.now() - 2000000 },
-      { id: 2, body: "This is a second test", timestamp: Date.now() - 1000000 },
-      { id: 3, body: "This is a third test", timestamp: Date.now() },
-    ];
-    this.selectedNote = this.notes[0];
   },
   methods: {
     selectNote: function (note) {
