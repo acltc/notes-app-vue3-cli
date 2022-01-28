@@ -29,11 +29,56 @@ export default {
         });
     });
 
+    const selectNote = function (note) {
+      selectedNote.value = note;
+    };
+
+    const updateSelectedNote = function (body) {
+      selectedNote.value.body = body;
+      selectedNote.value.timestamp = Date.now();
+    };
+
+    const createNote = function () {
+      const newNote = {
+        id: Date.now(),
+        body: "",
+        timestamp: Date.now(),
+      };
+      notes.value.push(newNote);
+      selectedNote.value = newNote;
+    };
+
+    const deleteNote = function () {
+      const index = notes.value.indexOf(selectedNote.value);
+      if (index !== -1) {
+        notes.value.splice(index, 1);
+        if (transformedNotes.value.length > 0) {
+          selectedNote.value = transformedNotes.value[0];
+        } else {
+          selectedNote.value = {};
+        }
+      }
+    };
+
+    const updateSearch = function (newSearchText) {
+      searchNoteText.value = newSearchText;
+      if (transformedNotes.value.length === 0) {
+        selectedNote.value = {};
+      } else if (transformedNotes.value.indexOf(selectedNote.value) === -1) {
+        selectedNote.value = transformedNotes.value[0];
+      }
+    };
+
     return {
       notes,
       selectedNote,
       searchNoteText,
       transformedNotes,
+      selectNote,
+      updateSelectedNote,
+      createNote,
+      deleteNote,
+      updateSearch,
     };
   },
   provide: function () {
@@ -43,43 +88,6 @@ export default {
       selectNote: this.selectNote,
       updateSelectedNote: this.updateSelectedNote,
     };
-  },
-  methods: {
-    selectNote: function (note) {
-      this.selectedNote = note;
-    },
-    updateSelectedNote: function (body) {
-      this.selectedNote.body = body;
-      this.selectedNote.timestamp = Date.now();
-    },
-    createNote: function () {
-      const newNote = {
-        id: Date.now(),
-        body: "",
-        timestamp: Date.now(),
-      };
-      this.notes.push(newNote);
-      this.selectedNote = newNote;
-    },
-    deleteNote: function () {
-      const index = this.notes.indexOf(this.selectedNote);
-      if (index !== -1) {
-        this.notes.splice(index, 1);
-        if (this.transformedNotes.length > 0) {
-          this.selectedNote = this.transformedNotes[0];
-        } else {
-          this.selectedNote = {};
-        }
-      }
-    },
-    updateSearch: function (newSearchText) {
-      this.searchNoteText = newSearchText;
-      if (this.transformedNotes.length === 0) {
-        this.selectedNote = {};
-      } else if (this.transformedNotes.indexOf(this.selectedNote) === -1) {
-        this.selectedNote = this.transformedNotes[0];
-      }
-    },
   },
 };
 </script>
