@@ -1,16 +1,22 @@
 <script>
 export default {
   props: ["searchNoteText"],
-  methods: {
-    clickNew: function () {
-      this.$emit("clickNew");
-    },
-    clickDelete: function () {
-      this.$emit("clickDelete");
-    },
-    input: function (event) {
-      this.$emit("inputSearchNoteText", event.target.value);
-    },
+  setup: function (props, context) {
+    console.log(props.searchNoteText);
+
+    const clickNew = function () {
+      context.emit("clickNew");
+    };
+
+    const clickDelete = function () {
+      context.emit("clickDelete");
+    };
+
+    const input = function (event) {
+      context.emit("inputSearchNoteText", event.target.value);
+    };
+
+    return { clickNew, clickDelete, input };
   },
 };
 </script>
