@@ -1,5 +1,5 @@
 <script>
-import { computed, ref } from "vue";
+import { computed, provide, readonly, ref } from "vue";
 import NoteToolbar from "./components/NoteToolbar.vue";
 import NoteContainer from "./components/NoteContainer.vue";
 
@@ -69,6 +69,11 @@ export default {
       }
     };
 
+    provide("notes", readonly(transformedNotes));
+    provide("selectedNote", readonly(selectedNote));
+    provide("selectNote", selectNote);
+    provide("updateSelectedNote", updateSelectedNote);
+
     return {
       notes,
       selectedNote,
@@ -79,14 +84,6 @@ export default {
       createNote,
       deleteNote,
       updateSearch,
-    };
-  },
-  provide: function () {
-    return {
-      notes: computed(() => this.transformedNotes),
-      selectedNote: computed(() => this.selectedNote),
-      selectNote: this.selectNote,
-      updateSelectedNote: this.updateSelectedNote,
     };
   },
 };
