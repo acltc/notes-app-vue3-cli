@@ -17,10 +17,23 @@ export default {
     const selectedNote = ref(notes.value[0]);
     const searchNoteText = ref("");
 
+    const transformedNotes = computed(function () {
+      const searchLower = searchNoteText.value.toLowerCase();
+      return notes.value
+        .filter(function (note) {
+          const bodyLower = note.body.toLowerCase();
+          return bodyLower.indexOf(searchLower) !== -1;
+        })
+        .sort(function (a, b) {
+          return b.timestamp - a.timestamp;
+        });
+    });
+
     return {
       notes,
       selectedNote,
       searchNoteText,
+      transformedNotes,
     };
   },
   provide: function () {
@@ -30,19 +43,6 @@ export default {
       selectNote: this.selectNote,
       updateSelectedNote: this.updateSelectedNote,
     };
-  },
-  computed: {
-    transformedNotes: function () {
-      const searchLower = this.searchNoteText.toLowerCase();
-      return this.notes
-        .filter(function (note) {
-          const bodyLower = note.body.toLowerCase();
-          return bodyLower.indexOf(searchLower) !== -1;
-        })
-        .sort(function (a, b) {
-          return b.timestamp - a.timestamp;
-        });
-    },
   },
   methods: {
     selectNote: function (note) {
